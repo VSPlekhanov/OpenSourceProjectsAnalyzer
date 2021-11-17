@@ -3,7 +3,7 @@
   {
    "cell_type": "code",
    "execution_count": 64,
-   "id": "7c6d4ed1",
+   "id": "b3fe5787",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -15,7 +15,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "555a2418",
+   "id": "bbe14e00",
    "metadata": {},
    "source": [
     "## Core Idea\n",
@@ -37,7 +37,7 @@
   {
    "cell_type": "code",
    "execution_count": 65,
-   "id": "e755f811",
+   "id": "769f54ab",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -63,15 +63,19 @@
   {
    "cell_type": "code",
    "execution_count": 66,
-   "id": "2dd9b9a9",
+   "id": "277a1aa2",
    "metadata": {},
    "outputs": [],
    "source": [
+    "SECRET = ''\n",
+    "## ^ PUT YOUR SECRET KEY HERE ^\n",
+    "\n",
     "UNTIL = datetime.datetime(year=2020, month=11, day=1)\n",
     "COMMITS_AMOUNT = 50\n",
     "\n",
     "session = requests.Session()\n",
-    "session.auth = ('DanielGabitov', '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')\n",
+    "assert SECRET\n",
+    "session.auth = ('DanielGabitov', SECRET)\n",
     "test_function_pattern = re.compile(r'^(test_.*\\.py|.*_test\\.py)$')\n",
     "source_file_pattern = re.compile(r'^.*py$')\n",
     "\n",
@@ -134,7 +138,7 @@
   {
    "cell_type": "code",
    "execution_count": 67,
-   "id": "9fc1f8bf",
+   "id": "6f6ed675",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -144,7 +148,7 @@
   {
    "cell_type": "code",
    "execution_count": 68,
-   "id": "ef8f20e1",
+   "id": "dd92be41",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -161,7 +165,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "2f48fc14",
+   "id": "174f2846",
    "metadata": {},
    "source": [
     "## Results"
@@ -170,7 +174,7 @@
   {
    "cell_type": "code",
    "execution_count": 70,
-   "id": "05c28515",
+   "id": "c1afaef7",
    "metadata": {},
    "outputs": [
     {
@@ -192,7 +196,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "8f389b6a",
+   "id": "a35e742a",
    "metadata": {},
    "source": [
     "Yellow marks - the results of the metric, green marks - my rating for projects on a scale from 1 to 10.\n",
