@@ -1,0 +1,28 @@
+<ul class="text-center list-inline py-3">
+  <div class="input-group">
+    <input type="search" class="form-control rounded" placeholder="Project URL" #search id="search"/>
+    <button type="button" class="btn btn-outline-primary" (click)="OnSearch(search.value)">search</button>
+  </div>
+</ul>
+<div class="card my-5">
+  <div class="card-body">
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+      <tr>
+        <th scope="col">URL</th>
+        <th scope="col">Name</th>
+        <th scope="col">INFO</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let project of projects">
+        <td><a href="{{ project.url }}">{{ project.url }}</a></td>
+        <td>{{ project.name }}</td>
+        <td>
+          <span style="white-space: pre-line">{{ project.info }}</span>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

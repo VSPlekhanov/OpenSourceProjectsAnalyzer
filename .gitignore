@@ -1,0 +1,5 @@
+Resources/access_token.txt
+*.idea/
+*.iml
+target/
+node_modules/
