@@ -21,4 +21,5 @@ six==1.16.0
 urllib3==1.26.7
 wrapt==1.13.3
 yarl==1.7.2
-beautifulsoup4~=4.10.0
+beautifulsoup4==4.10.0
+lxml==4.7.1
