@@ -23,7 +23,7 @@ def get_info(username, repo):
         if i >= MAX_COMMIT:
             break
         for file in commit.files:
-            if 'test' in file.filename:
+            if 'test' in file.filename.lower():
                 good_commits_amount += 1
                 break
     return f'Number of commits where tests have been changed: {good_commits_amount}'
