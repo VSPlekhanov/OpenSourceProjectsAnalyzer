@@ -1,24 +1,31 @@
 # --------------------
 # A good open source project is used by many people.
 # We want to evaluate how many other projects use our open source project.
-# In order to to so, we are using github search API looking for build files
-# where our project is mentioned
+# --------------------
+
+# NOTE
+# --------------------
+# Example of usage count measured by github itself:
+# https://github.com/projectlombok/lombok/network/dependents
+# The problem:
+# https://github.community/t/bug-project-not-showing-network-dependents/3161
+# So if we have not found any dependents project, we are using github
+# search API looking for build files where our project is mentioned
 # --------------------
 
 
 import os
 import requests
-from dotenv import load_dotenv
 from github import Github
+from bs4 import BeautifulSoup
 
 import common
 
-load_dotenv()
-
 SEARCH_URL = 'https://api.github.com/search/code?q={project} filename:{filename}'
+DEPENDENTS_URL = 'https://github.com/{username}/{repo_name}/network/dependents'
 
 
-def get_info(username, repo):
+def github_search_info(username, repo):
     g = Github(os.getenv("GITHUB_API_TOKEN"))
     repo = g.get_repo(f'{username}/{repo}')
     lang = common.get_project_language(repo)
@@ -53,4 +60,20 @@ def get_info(username, repo):
         if response.status_code != 200:
             return f'Could not get info form github search API. Probably secondary rate limit exceeded.'
         usages += response.json()['total_count']
+    return f'Project usages number: {usages}'
+
+
+def get_info(username, repo):
+    response = requests.get(
+        DEPENDENTS_URL.format(username=username, repo_name=repo))
+    if response.status_code != 200:
+        raise RuntimeError(f'could not fetch github dependents page. '
+                           f'Error message: {response.text}')
+    soup = BeautifulSoup(response.text, 'html.parser')
+    tag = soup.findAll('a', {'class': 'btn-link selected'})[0]
+    if not tag:
+        raise RuntimeError('could not find dependents tag')
+    usages = ''.join(filter(str.isdigit, tag.text))
+    if usages == '0':
+        return github_search_info(username, repo)
     return f'Project usages number: {usages}'
