@@ -1,3 +1,5 @@
+from Metrics.releases_info import releases_info
+from Metrics import project_usage
 from Metrics import commit_freq
 from Metrics import issues_activity
 from Metrics import is_company
@@ -9,7 +11,7 @@ from aiogram import Bot, Dispatcher, executor, types
 API_TOKEN = os.getenv("TELEGRAM_API_TOKEN")
 
 # All available metrics
-metrics_list = [commit_freq, issues_activity, is_company]
+metrics_list = [commit_freq, issues_activity, is_company, project_usage, releases_info]
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
